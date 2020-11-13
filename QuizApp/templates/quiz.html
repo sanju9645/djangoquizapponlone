@@ -1,0 +1,125 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="csrfmiddlewaretoken" content="{{ csrf_token }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        Home Page
+    </title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link
+    rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+    crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="/static/css/quizStyle.css">
+</head>
+<body>
+    {% if user.is_authenticated %}
+    <div class="container">
+        <div class="navbar">
+            <div class="logo">
+                <img src="/static/images/logo.png" width="100px">
+            </div>
+            <nav>
+                <ul id="MenuItems">
+                    <li>Hi, {{request.user.first_name}}</li>
+                    <li><a href="/logout" class="btn">LogOut</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+    <div class="account-page">
+        <div class="container">
+            <div class="row">
+
+                <div class="home-box custom-box">
+
+                    <h3>Instructions :</h3>
+                    <p>Total number of questions : <span class="total-questions">10</span> </p>
+                    <button type="button" class="buttonbtn" onclick="startQuiz()">Start Quiz</button>
+                
+                </div>
+                <div class="quiz-box custom-box">
+
+                    <div class="question-number">
+                        
+                    </div>
+                    <div class="question-text">
+                    </div>
+                    <div class="option-container">
+                        
+                    </div>
+                    <div class="next-question-buttonbtn">
+                        <button type="button" class="buttonbtn" onclick="next()">Next</button>
+                    </div>
+                    <div class="answers-indicator">
+                        
+                    </div>
+                </div>
+            
+                <div class="result-box custom-box">
+
+                    <h1>Quiz Result</h1>
+                    <table>
+                        <tr>
+                            <td>Total Questions</td>
+                            <td><span class="total-question"></span></td>
+                        </tr>
+                        <tr>
+                            <td>Attempt</td>
+                            <td><span class="total-attempt"></span></td>
+                        </tr>
+                        <tr>
+                            <td>Correct</td>
+                            <td><span class="total-correct"></span></td>
+                        </tr>
+                        <tr>
+                            <td>Wrong</td>
+                            <td><span class="total-wrong"></span></td>
+                        </tr>
+                        <tr>
+                            <td>Total Time </td>
+                            <td><span class="total-time"></span></td>
+                        </tr>
+                        <tr>
+                            <td>Percentage</td>
+                            <td><span class="percentage"></span></td>
+                        </tr>
+                        <tr>
+                            <td>Total Score</td>
+                            <td><span class="total-score"></span></td>
+                        </tr>
+                    </table>
+                    <button type="button" class="buttonbtn" onclick="tryAgainQuiz()">Try Again</button>
+                    <button type="button" class="buttonbtn" onclick="backToHome()">Go To Home</button>
+
+            
+                </div>
+
+
+
+                
+            
+            </div>
+        </div>
+    </div>
+
+    <!-- <script src="/static/js/question.js"></script> -->
+    <!--<script src="/static/js/fetchQuestion.js"></script> -->
+    <script>
+        var quiz = JSON.parse('{{ quizQandA | escapejs }}')
+    </script>
+    <script src="/static/js/fetchQuestions.js"></script>
+    {% else %}
+        <h1>404 - Not Found ! ! !</h1>
+        <li><a href="/" class="btn">Home</a></li>
+    {% endif %}
+
+</body>
+</html>
